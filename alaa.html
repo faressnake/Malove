@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>Alaa ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:'Cairo',sans-serif;
+  color:#fff;
+  background:radial-gradient(circle at top,#0b1d33,#02040f);
+  overflow-x:hidden;
+}
+
+/* نجوم */
+.stars{
+  position:fixed;inset:0;
+  background:
+    radial-gradient(1px 1px at 10% 20%, #fff, transparent),
+    radial-gradient(1px 1px at 30% 80%, #fff, transparent),
+    radial-gradient(2px 2px at 50% 40%, #fff, transparent),
+    radial-gradient(1px 1px at 70% 10%, #fff, transparent),
+    radial-gradient(2px 2px at 90% 60%, #fff, transparent);
+  animation:twinkle 4s infinite alternate;
+  z-index:-3;
+}
+@keyframes twinkle{from{opacity:.3}to{opacity:1}}
+
+/* مطر */
+.rain{
+  position:fixed;top:-20px;
+  width:2px;height:20px;
+  background:rgba(255,255,255,.6);
+  animation:fall 4s linear;
+}
+@keyframes fall{to{transform:translateY(110vh);opacity:0}}
+
+/* اهتزاز */
+@keyframes shake{
+  0%{transform:translate(0)}
+  25%{transform:translate(-6px,6px)}
+  50%{transform:translate(6px,-6px)}
+  75%{transform:translate(-6px,-6px)}
+  100%{transform:translate(0)}
+}
+
+/* بصمة */
+#fingerprintScreen{
+  position:fixed;inset:0;
+  background:black;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  z-index:50;
+}
+.fingerprint{
+  width:140px;height:140px;border-radius:50%;
+  background:repeating-radial-gradient(circle,rgba(255,255,255,.9) 0 2px,rgba(255,255,255,.2) 2px 6px);
+  animation:pulse 1.5s infinite;
+  cursor:pointer;
+}
+@keyframes pulse{
+  0%{transform:scale(1);opacity:.6}
+  50%{transform:scale(1.15);opacity:1}
+  100%{transform:scale(1);opacity:.6}
+}
+#fpLove{
+  font-family:Pacifico;
+  font-size:2rem;
+  color:#ff4d8d;
+  opacity:0;
+  transition:1s;
+  margin-bottom:20px;
+}
+
+/* المحتوى */
+header{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+header h1{
+  font-family:Pacifico;
+  font-size:3rem;
+  color:#ffd1ec;
+}
+.heart{font-size:4rem;animation:beat 1.3s infinite}
+@keyframes beat{50%{transform:scale(1.2)}}
+
+section{padding:80px 20px}
+.card{
+  max-width:900px;
+  margin:auto;
+  background:rgba(255,255,255,.08);
+  padding:40px;
+  border-radius:25px;
+  backdrop-filter:blur(8px);
+}
+
+/* اعتراف */
+#confessionTitle{
+  font-family:Pacifico;
+  font-size:2.5rem;
+  text-align:center;
+  margin-bottom:25px;
+}
+#typeText{
+  font-size:1.25rem;
+  line-height:2.4;
+  min-height:300px;
+}
+.red{color:#ff3b6a;font-weight:bold}
+
+/* تعداد */
+.timeline{
+  margin-top:40px;
+  border-right:2px solid rgba(255,255,255,.3);
+  padding-right:20px;
+}
+.timeline div{margin-bottom:15px}
+
+/* زر */
+#loveBtn{
+  margin-top:40px;
+  padding:15px 40px;
+  font-size:1.2rem;
+  border:none;
+  border-radius:50px;
+  background:#ff3b6a;
+  color:white;
+  cursor:pointer;
+}
+
+/* شاشة النهاية */
+#finalScreen{
+  position:fixed;inset:0;
+  background:black;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  z-index:100;
+}
+#finalText{
+  font-family:Pacifico;
+  font-size:2.5rem;
+  line-height:2;
+}
+
+footer{text-align:center;padding:30px;opacity:.7}
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<audio id="music" loop>
+  <source src="love.mp3" type="audio/mpeg">
+</audio>
+
+<!-- شاشة البصمة -->
+<div id="fingerprintScreen">
+  <div id="fpLove">Ma women</div>
+  <div class="fingerprint" id="fp"></div>
+  <p>حطي صبعك لمعسل هنا</p>
+</div>
+
+<header>
+  <div class="heart">💖</div>
+  <h1>Fares ❤ Alaa</h1>
+</header>
+
+<section>
+<div class="card">
+  <div id="confessionTitle"></div>
+  <div id="typeText"></div>
+
+  <div class="timeline" id="timeline"></div>
+
+  <button id="loveBtn">نحبك كليكي هنا</button>
+</div>
+</section>
+
+<div id="finalScreen">
+  <div id="finalText"></div>
+</div>
+
+<footer>مكتوب من القلب</footer>
+
+<script>
+const fp=document.getElementById('fp');
+const fpLove=document.getElementById('fpLove');
+const fpScreen=document.getElementById('fingerprintScreen');
+const music=document.getElementById('music');
+const typeBox=document.getElementById('typeText');
+const title=document.getElementById('confessionTitle');
+const loveBtn=document.getElementById('loveBtn');
+const finalScreen=document.getElementById('finalScreen');
+const finalText=document.getElementById('finalText');
+
+function vibrate(){
+  navigator.vibrate?.([200,100,200]);
+}
+
+/* بصمة */
+fp.onclick=()=>{
+  vibrate();
+  fpLove.style.opacity=1;
+  music.play().catch(()=>{});
+  setTimeout(()=>{
+    fpScreen.remove();
+    startConfession();
+  },2000);
+};
+
+/* عنوان */
+function typeTitle(){
+  const text="نقولك هادي عقولتي";
+  let i=0;
+  const t=setInterval(()=>{
+    title.textContent+=text[i++];
+    if(i===text.length)clearInterval(t);
+  },120);
+}
+
+/* نص طويل */
+const confessionText =
+"انا نحبك بزاف مرتي نحبك حب ما يتقاسش بالكلام، وجودك في حياتي هو الأمان وهو الروح، نموت عليك ونحمد ربي عليك كل يوم، ضحكتك تداوي وجعي وصوتك يطمني، نحبك ونبقى نحبك مهما دار الزمان.";
+
+const words=["مرتي","نحبك","نموت عليك"];
+
+function startConfession(){
+  typeTitle();
+  let i=0, buffer="";
+  function type(){
+    if(i<confessionText.length){
+      buffer+=confessionText[i];
+      typeBox.innerHTML=colorize(buffer);
+      i++;
+      setTimeout(type,60);
+    }
+  }
+  type();
+}
+
+function colorize(t){
+  let h=t;
+  words.forEach(w=>{
+    if(t.endsWith(w)){vibrate();document.body.style.animation='shake .4s'}
+    h=h.replaceAll(w,`<span class="red">${w}</span>`);
+  });
+  return h;
+}
+
+/* تعداد */
+const start=new Date('2026-01-28');
+const days=Math.floor((new Date()-start)/(1000*60*60*24));
+timeline.innerHTML=`
+<div> بداية 28 جانفي 2026</div>
+<div>${days} يوم حب</div>
+<div>${Math.floor(days/30)} شهر</div>
+<div>${Math.floor(days/365)} سنة</div>
+<div>ومازال نحبك</div>
+`;
+
+/* زر النهاية */
+loveBtn.onclick=()=>{
+  // نخبي كل المحتوى ما عدا الموسيقى
+  document.querySelector('header').style.display='none';
+  document.querySelector('section').style.display='none';
+  document.querySelector('footer').style.display='none';
+
+  finalScreen.style.display='flex';
+
+  // نأكد بلي الموسيقى ما زالت خدامة
+  music.play().catch(()=>{});
+
+  const lines=[
+    "نحبك",
+    "نحب ضحكتك",
+    "نحب صوتك",
+    "نحب حضورك",
+     "نحبك اعاقلة",
+    "نحب قلبك",
+    "نحبك بزاف",
+    "نحبك دايما",
+    "نحبك للأبد",
+    "نحبك يا حياتي",
+    "نحبك يا مرتي العزيزة"
+  ];
+
+  let i=0;
+  function showLine(){
+    if(i<lines.length){
+      finalText.textContent='';
+      let j=0;
+      const s=setInterval(()=>{
+        finalText.textContent+=lines[i][j++]||'';
+        if(j>lines[i].length){
+          clearInterval(s);
+          setTimeout(()=>{i++;showLine()},1000);
+        }
+      },120);
+    }
+  }
+  showLine();
+
+  setInterval(()=>{
+    const r=document.createElement('div');
+    r.className='rain';
+    r.style.left=Math.random()*100+'vw';
+    document.body.appendChild(r);
+    setTimeout(()=>r.remove(),4000);
+  },100);
+};
+</script>
+
+</body>
+  </html>
